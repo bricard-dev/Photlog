@@ -10,12 +10,13 @@ class PostFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $post = (new Post)
-            ->setTitle('Hello')
-            ->setContent("This is my first post")
-        ;
+        for ($i = 0; $i < 6; $i++) {
+            $post = (new Post)
+                ->setTitle('Hello')
+                ->setContent("This is my first post");
 
-        $manager->persist($post);
+            $manager->persist($post);
+        }
         $manager->flush();
     }
 }
