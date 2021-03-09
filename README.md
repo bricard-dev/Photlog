@@ -10,7 +10,7 @@ Languages :
 * Twig (https://twig.symfony.com): Version 3
 
 Framework :
-* Symfony (https://symfony.com): Version 
+* Symfony (https://symfony.com): Version 5.2.4
 * Bootstrap (https://getbootstrap.com): Version 4.6
 
 RDBMS :
