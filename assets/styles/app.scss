@@ -36,6 +36,7 @@ body {
 
     a {
         text-decoration: none;
+
         .card-cm-title {
             color: black;
         }
@@ -44,6 +45,10 @@ body {
     .card-cm-title {
         font-size: 1.3125rem;
         font-weight: 700;
+    }
+
+    .card-cm-img {
+        width: 100%;
     }
 
     .card-cm-body {

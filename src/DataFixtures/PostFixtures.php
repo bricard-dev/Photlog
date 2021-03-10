@@ -20,6 +20,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             $post = (new Post)
                 ->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
                 ->setContent($this->faker->text())
+                ->setImageName($this->faker->imageUrl($width = 640, $height = 480))
                 ->addCategory($this->getReference(CategoryFixtures::CATEGORY_REFERENCE))
             ;
             $manager->persist($post);
