@@ -26,22 +26,24 @@ body {
 }
 
 .card-cm {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+
     header {
         &.card-cm-header {
             padding: .75rem 1.5rem;
-
-            a {
-                text-decoration: none;
-                color: black;
-                .card-cm-title {
-                    font-weight: 700;
-                }
-            }
-
-            .card-cm-title {
-                font-size: 1.3125rem;
-            }
         }
+    }
+
+    a {
+        text-decoration: none;
+        .card-cm-title {
+            color: black;
+        }
+    }
+
+    .card-cm-title {
+        font-size: 1.3125rem;
+        font-weight: 700;
     }
 
     .card-cm-body {
