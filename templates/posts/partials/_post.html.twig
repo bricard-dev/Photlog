@@ -1,7 +1,14 @@
 <article class="card-cm mb-4">
     <header class="card-cm-header">
         <div class="card-cm-meta">
-            <p class="mb-2">{{ post.createdAt|ago }} in <a href="#">[CATEGORIES]</a></p>
+            <p class="mb-2">
+                {{ post.createdAt|ago }} in 
+                <a href="#">
+                    {% for category in post.categories %}
+                        {{ category.name }}
+                    {% endfor %}
+                </a>
+            </p>
         </div>
         <a href="#">
             <h4 class="card-cm-title">{{ post.title }}</h4>

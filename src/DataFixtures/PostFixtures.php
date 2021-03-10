@@ -4,10 +4,11 @@ namespace App\DataFixtures;
 
 use App\Entity\Post;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class PostFixtures extends Fixture
+class PostFixtures extends Fixture implements DependentFixtureInterface
 {
     protected $faker;
 
@@ -18,10 +19,18 @@ class PostFixtures extends Fixture
         for ($i = 0; $i < 6; $i++) {
             $post = (new Post)
                 ->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
-                ->setContent($this->faker->text());
+                ->setContent($this->faker->text())
+                ->addCategory($this->getReference(CategoryFixtures::CATEGORY_REFERENCE))
             ;
             $manager->persist($post);
         }
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            CategoryFixtures::class,
+        ];
     }
 }
