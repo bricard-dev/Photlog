@@ -5,7 +5,7 @@ body {
     font-family: $primary-font;
     font-size: .875rem;
 
-    h1 {
+    h1, h2, h3, h4, h5, h6 {
         font-family: $secondary-font;
     }
 
@@ -36,6 +36,10 @@ body {
                 .card-cm-title {
                     font-weight: 700;
                 }
+            }
+
+            .card-cm-title {
+                font-size: 1.3125rem;
             }
         }
     }

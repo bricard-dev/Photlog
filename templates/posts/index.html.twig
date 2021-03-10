@@ -9,24 +9,7 @@
             {% for col in posts|batch(3) %}
                 <div class="col-md-6">
                     {% for post in col %}
-                        <article class="card-cm border-bottom">
-                            <header class="card-cm-header mt-3">
-                                <div class="card-cm-meta">
-                                    <p class="mb-2">{{ post.createdAt|date("m/d/Y") }} in <a href="#">[CATEGORIES]</a></p>
-                                </div>
-                                <a href="#">
-                                    <h4 class="card-cm-title">{{ post.title }}</h4>
-                                </a>
-                            </header>
-                            <a class="border" href="#">
-                                <img class="card-cm-img" src="" alt="">
-                            </a>
-                            <div class="card-cm-body">
-                                <p class="card-cm-text">
-                                    {{ post.content }}
-                                </p>
-                            </div>
-                        </article>
+                        {% include "posts/partials/_post.html.twig" %}
                     {% endfor %}
                 </div>
             {% endfor %}
