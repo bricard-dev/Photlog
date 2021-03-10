@@ -14,7 +14,7 @@ final class Version20210310112603 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Create categories and post_category tables';
     }
 
     public function up(Schema $schema) : void

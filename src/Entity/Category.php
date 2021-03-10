@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
  * @ORM\Table(name="categories")
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity(fields={"name"}, message="There is already an category with this name")
+ * @UniqueEntity(fields={"name"}, message="There is already a category with this name")
  */
 class Category
 {
