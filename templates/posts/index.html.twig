@@ -3,39 +3,45 @@
 {% block title 'Home' %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-9">
-            <div class="row">
-            {% for col in posts|batch(3) %}
-                <div class="col-md-6">
-                    {% for post in col %}
-                        {% include "posts/partials/_post.html.twig" %}
-                    {% endfor %}
-                </div>
-            {% endfor %}
-            </div>
-        </div>
-        <div class="col-md-3">
-            <aside class="sidebar">
-                <div class="card-cm mb-4">
-                    <div class="card-cm-body">
-                        <h4 class="card-cm-title">About</h4>
-                        <p class="card-cm-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis possimus quis cum. Cum voluptate dolorem distinctio soluta quibusdam natus animi asperiores nobis molestiae praesentium, a laborum vero earum ducimus quam.</p>
-                    </div>
-                </div>
-            </aside>
-            <aside class="sidebar-sticky position-sticky">
-                <div class="card-cm mb-4">
-                    <div class="card-cm-body">
-                        <h4 class="card-cm-title">Categories</h4>
-                        <p>
-                        {% for category in categories %}
-                            <a href="#">{{ category.name }}</a>
-                        {% endfor %}
-                        </p>
-                    </div>
-                </div>
-            </aside>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-md-9">
+			<div class="row">
+				{% for col in posts|batch(3) %}
+					<div class="col-md-6">
+						{% for post in col %}
+                            <article class="card-cm mb-4">
+                                <header class="card-cm-header">
+                                    <div class="card-cm-meta">
+                                        <p class="mb-2">
+                                            {{ post.createdAt|ago }}
+                                            in
+                                            <a href="#">
+                                                {% for category in post.categories %}
+                                                    {{ category.name }}
+                                                {% endfor %}
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <a href="{{ path('app_post_show', {id: post.id}) }}">
+                                        <h4 class="card-cm-title">{{ post.title }}</h4>
+                                    </a>
+                                </header>
+                                <a href="{{ path('app_post_show', {id: post.id}) }}">
+                                    <img class="card-cm-img" src="{{ post.imageName }}" alt="{{ post.title }}">
+                                </a>
+                                <div class="card-cm-body">
+                                    <p class="card-cm-text">
+                                        {{ post.content }}
+                                    </p>
+                                </div>
+                            </article>
+						{% endfor %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="col-md-3">
+			{% include "posts/partials/_sidebar.html.twig" %}
+		</div>
+	</div>
 {% endblock %}

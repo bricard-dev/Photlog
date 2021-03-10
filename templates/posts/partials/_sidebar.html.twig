@@ -1,0 +1,20 @@
+<aside class="sidebar">
+    <div class="card-cm mb-4">
+        <div class="card-cm-body">
+            <h4 class="card-cm-title">About</h4>
+            <p class="card-cm-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis possimus quis cum. Cum voluptate dolorem distinctio soluta quibusdam natus animi asperiores nobis molestiae praesentium, a laborum vero earum ducimus quam.</p>
+        </div>
+    </div>
+</aside>
+<aside class="sidebar-sticky position-sticky">
+    <div class="card-cm mb-4">
+        <div class="card-cm-body">
+            <h4 class="card-cm-title">Categories</h4>
+            <p>
+            {% for category in categories %}
+                <a href="#">{{ category.name }}</a>
+            {% endfor %}
+            </p>
+        </div>
+    </div>
+</aside>
