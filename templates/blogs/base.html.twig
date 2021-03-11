@@ -1,0 +1,29 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-9">
+            {% block content %}{% endblock %}
+        </div>
+        <div class="col-md-3">
+            <aside class="sidebar">
+                <div class="card-cm mb-4">
+                    <div class="card-cm-body">
+                        <h4 class="card-cm-title">About</h4>
+                        <p class="card-cm-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis possimus quis cum. Cum voluptate dolorem distinctio soluta quibusdam natus animi asperiores nobis molestiae praesentium, a laborum vero earum ducimus quam.</p>
+                    </div>
+                </div>
+            </aside>
+            <aside class="sidebar-sticky sticky-top">
+                <div class="card-cm mb-4">
+                    <div class="card-cm-body">
+                        <h4 class="card-cm-title">Categories</h4>
+                        <p>
+                            {{ render(controller('App\\Controller\\BlogController::allCategories')) }}
+                        </p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+{% endblock %}

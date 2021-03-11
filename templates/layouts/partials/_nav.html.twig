@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white border-bottom mb-4">
+<nav class="navbar navbar-expand-md navbar-light bg-white border-bottom">
 	<div class="container">
 		<button class="navbar-toggler order-2 order-md-1" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -8,8 +8,14 @@
 				<li class="nav-item {{ app.request.get('_route') == 'app_home' ? 'active' : '' }}">
 					<a class="nav-link" href="{{ path('app_home') }}">Home</a>
 				</li>
-                <li class="nav-item {{ app.request.get('_route') == '' ? 'active' : '' }}">
-					<a class="nav-link" href="#">Categories</a>
+                <li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Categories
+					</a>
+					
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						{{ render(controller('App\\Controller\\LayoutController::allCategories')) }}
+					</div>
 				</li>
 			</ul>
         </div>

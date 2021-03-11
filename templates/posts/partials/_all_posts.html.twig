@@ -1,0 +1,32 @@
+<div class="row">
+    {% for col in posts|batch(3) %}
+        <div class="col-md-6">
+            {% for post in col %}
+                <article class="card-cm mb-4">
+                    <header class="card-cm-header">
+                        <div class="card-cm-meta">
+                            <p class="mb-2">
+                                {{ post.createdAt|ago }}
+                                in
+                                {% for category in post.categories %}
+                                    <a href="{{ path('app_category_show', {slug: category.slug }) }}">{{ category.name }}</a>
+                                {% endfor %}
+                            </p>
+                        </div>
+                        <a href="{{ path('app_post_show', {slug: post.slug}) }}">
+                            <h4 class="card-cm-title">{{ post.title }}</h4>
+                        </a>
+                    </header>
+                    <a href="{{ path('app_post_show', {slug: post.slug}) }}">
+                        <img class="card-cm-img img-demo" src="{{ foo ~ post.imageName }}" alt="{{ post.title }}">
+                    </a>
+                    <div class="card-cm-body">
+                        <p class="card-cm-text">
+                            {{ post.content|u.truncate(100, '...') }}
+                        </p>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>

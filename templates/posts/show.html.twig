@@ -1,37 +1,28 @@
-{% extends 'layouts/base.html.twig' %}
+{% extends 'blogs/base.html.twig' %}
 
 {% block title post.title %}
 
-{% block body %}
+{% block content %}
     <div class="row">
-        <div class="col-md-9">
-            <div class="row">
-                <article class="card-cm mb-4">
-                    <header class="card-cm-header text-center">
-                        <div class="card-cm-meta">
-                            <p class="mb-2">
-                                {{ post.createdAt|ago }}
-                                in
-                                <a href="#">
-                                    {% for category in post.categories %}
-                                        {{ category.name }}
-                                    {% endfor %}
-                                </a>
-                            </p>
-                        </div>
-                        <h1 class="card-cm-title">{{ post.title }}</h1>
-                    </header>
-                    <img class="card-cm-img" src="../{{ post.imageName }}" alt="{{ post.title }}">
-                    <div class="card-cm-body">
-                        <p class="card-cm-text">
-                            {{ post.content }}
-                        </p>
-                    </div>
-                </article>
+        <article class="card-cm mb-4">
+            <header class="card-cm-header text-center">
+                <div class="card-cm-meta">
+                    <p class="mb-2">
+                        {{ post.createdAt|ago }}
+                        in
+                        {% for category in post.categories %}
+                            <a href="{{ path('app_category_show', {slug: category.slug}) }}">{{ category.name }}</a>
+                        {% endfor %}
+                    </p>
+                </div>
+                <h1 class="card-cm-title">{{ post.title }}</h1>
+            </header>
+            <img class="card-cm-img" src="../{{ post.imageName }}" alt="{{ post.title }}">
+            <div class="card-cm-body">
+                <p class="card-cm-text">
+                    {{ post.content }}
+                </p>
             </div>
-        </div>
-        <div class="col-md-3">
-            {% include "posts/partials/_sidebar.html.twig" %}
-        </div>
+        </article>
     </div>
 {% endblock %}

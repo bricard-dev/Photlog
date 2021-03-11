@@ -1,0 +1,5 @@
+{% for category in categories %}
+    <a class="" href="{{ path('app_category_show', {slug: category.slug}) }}">
+        {{ category.name }}
+    </a>
+{% endfor %}

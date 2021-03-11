@@ -1,0 +1,12 @@
+{% extends 'blogs/base.html.twig' %}
+
+{% block title category.name %}
+
+{% block content %}
+    <div class="text-center">
+        <span class="text-muted">Category:</span>
+        <h2>{{ category.name }}</h2>
+        <hr>
+    </div>
+    {% include "posts/partials/_all_posts.html.twig" with {'foo': '../'} %}
+{% endblock %}
