@@ -31,7 +31,7 @@
                                 </a>
                                 <div class="card-cm-body">
                                     <p class="card-cm-text">
-                                        {{ post.content }}
+                                        {{ post.content|u.truncate(100, '...') }}
                                     </p>
                                 </div>
                             </article>
