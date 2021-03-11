@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -34,6 +35,12 @@ class Post
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $title;
+
+    /**
+     * @ORM\Column(type="string", length=100, unique=true)
+     * @Gedmo\Slug(fields={"title"})
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="text")
@@ -80,6 +87,11 @@ class Post
         $this->title = $title;
 
         return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
     }
 
     public function getContent(): ?string

@@ -23,7 +23,7 @@ class PostsController extends AbstractController
         ]);
     }
 
-    #[Route('/posts/{id<[0-9]+>}', name: 'app_post_show', methods: ['GET'])]
+    #[Route('/posts/{slug}', name: 'app_post_show', methods: ['GET'])]
     public function show(CategoryRepository $categoryRepository, Post $post): Response
     {
         $categories = $categoryRepository->findAll();

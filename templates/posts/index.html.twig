@@ -22,11 +22,11 @@
                                             </a>
                                         </p>
                                     </div>
-                                    <a href="{{ path('app_post_show', {id: post.id}) }}">
+                                    <a href="{{ path('app_post_show', {slug: post.slug}) }}">
                                         <h4 class="card-cm-title">{{ post.title }}</h4>
                                     </a>
                                 </header>
-                                <a href="{{ path('app_post_show', {id: post.id}) }}">
+                                <a href="{{ path('app_post_show', {slug: post.slug}) }}">
                                     <img class="card-cm-img" src="{{ post.imageName }}" alt="{{ post.title }}">
                                 </a>
                                 <div class="card-cm-body">
