@@ -39,7 +39,7 @@ class Category
     private $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Post::class, mappedBy="categories")
+     * @ORM\ManyToMany(targetEntity=Post::class, mappedBy="categories", cascade="remove")
      */
     private $posts;
 

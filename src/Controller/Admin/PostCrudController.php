@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Post;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\SectionMenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -20,6 +22,17 @@ class PostCrudController extends AbstractCrudController
         return Post::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Post')
+            ->setEntityLabelInPlural('Posts')
+            ->setSearchFields(['id', 'title'])
+            ->setDateTimeFormat('d/MM/Y H:mm a')
+            ->setPaginatorPageSize(10)
+        ;
+    }
+
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -27,11 +40,16 @@ class PostCrudController extends AbstractCrudController
             TextField::new('title'),
             TextEditorField::new('content'),
             AssociationField::new('categories'),
-            TextareaField::new('imageFile')->setFormType(VichImageType::class)
-            //ImageField::new('imageFile', 'Image')->setUploadDir('public/uploads/posts')->hideOnIndex(),
-            //ImageField::new('imageName', 'Image')->setBasePath('uploads/posts')->hideOnForm(),
-            //DateTimeField::new('createdAt'),
-            //DateTimeField::new('updatedAt'),
+            TextareaField::new('imageFile')
+                ->setFormType(VichImageType::class)
+                ->setLabel('Picture')
+                ->setFormTypeOption('allow_delete', false)
+                ->hideOnIndex(),
+            ImageField::new('imageName', 'Image')
+                ->setBasePath('uploads/posts')
+                ->hideOnForm(),
+            DateTimeField::new('createdAt')->onlyOnIndex(),
+            DateTimeField::new('updatedAt')->onlyOnIndex(),
         ];
     }
 }
