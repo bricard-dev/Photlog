@@ -3,5 +3,13 @@
 {% block title 'Home' %}
 
 {% block content %}
-    {% include "posts/partials/_all_posts.html.twig" with {'foo': ''} %}
+<div class="row">
+    {% for col in posts|batch(3) %}
+        <div class="col-md-6">
+            {% for post in col %}
+                {% include "posts/partials/_post.html.twig" %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}

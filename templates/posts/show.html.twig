@@ -17,10 +17,10 @@
                 </div>
                 <h1 class="card-cm-title">{{ post.title }}</h1>
             </header>
-            <img class="card-cm-img" src="../{{ post.imageName }}" alt="{{ post.title }}">
+            <img class="card-cm-img" src="{{ vich_uploader_asset(post, 'imageFile') }}" alt="{{ post.title }}">
             <div class="card-cm-body">
                 <p class="card-cm-text">
-                    {{ post.content }}
+                    {{ post.content|raw }}
                 </p>
             </div>
         </article>

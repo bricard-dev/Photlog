@@ -22,6 +22,10 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
+###> symfony/vich-uploader-bundle ###
+/public/uploads/
+###< symfony/vich-uploader-bundle ###
+
 ###> custom ###
 .DS_Store
 ###< custom ###
