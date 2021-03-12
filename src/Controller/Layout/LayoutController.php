@@ -9,10 +9,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LayoutController extends AbstractController
 {
-    public function allCategories(CategoryRepository $categoryRepository): Response
+    public function allCategories(CategoryRepository $categoryRepository, string $class): Response
     {
         $categories = $categoryRepository->findAll();
 
-        return $this->render('layouts/partials/_all_categories.html.twig', compact('categories'));
+        return $this->render('layouts/partials/_all_categories.html.twig', [
+            'categories' => $categories,
+            'class' => $class,
+        ]);
     }
 }

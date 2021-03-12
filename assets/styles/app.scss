@@ -57,6 +57,7 @@ body {
     }
 
     .card-cm-title {
+        margin-bottom: .75rem;
         font-weight: 700;
     }
 
@@ -78,4 +79,11 @@ body {
     .card-cm-body {
         padding: 1.5rem;
     }
+}
+
+.btn {
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 75%;
+    font-weight: 700;
 }
