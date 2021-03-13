@@ -33,6 +33,7 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\Length(min=2, max=255)
      */
     private $title;
 
@@ -44,11 +45,13 @@ class Post
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $content;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="posts")
+     * @Assert\Count(min=1, minMessage="You should choose at least one category for a post")
      */
     private $categories;
 
@@ -57,6 +60,7 @@ class Post
      * 
      * @Vich\UploadableField(mapping="post_image", fileNameProperty="imageName")
      * @Assert\Image(maxSize="8M")
+     * @Assert\NotBlank(message="You should upload a picture")
      * 
      * @var File|null
      */
