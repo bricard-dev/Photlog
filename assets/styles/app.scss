@@ -87,3 +87,35 @@ body {
     font-size: 75%;
     font-weight: 700;
 }
+
+// Override bootstrap template pagination
+
+@import "node_modules/bootstrap/scss/_pagination.scss";
+
+.page-link {
+  color: $black;
+
+  &:hover {
+    color: $black;
+  }
+}
+
+.page-item {
+    &:first-child {
+        .page-link {
+            margin-left: 0;
+            border-radius: 0;
+        }
+    }
+    &:last-child {
+        .page-link {
+            border-radius: 0;
+        }
+    }
+
+    &.active .page-link {
+        color: $white;
+        background-color: $black;
+        border-color: $black;
+      }
+}

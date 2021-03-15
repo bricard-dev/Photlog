@@ -23,6 +23,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Post
 {
     use Timestampable;
+
+    const POST_PER_PAGE = 8;
     
     /**
      * @ORM\Id

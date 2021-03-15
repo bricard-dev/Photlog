@@ -16,7 +16,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
     {
         $this->faker = Factory::create();
 
-        for ($i = 0; $i < 6; $i++) {
+        for ($i = 0; $i < 13; $i++) {
             $post = (new Post)
                 ->setTitle($this->faker->sentence($nbWords = 6, $variableNbWords = true))
                 ->setContent($this->faker->paragraph($nbSentences = $this->faker->numberBetween($min = 3, $max = 15), $variableNbSentences = false))
