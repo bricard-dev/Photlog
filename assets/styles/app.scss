@@ -119,3 +119,13 @@ body {
         border-color: $black;
       }
 }
+
+aside {
+    a {
+        text-decoration: none;
+        
+        h6, p {
+            color: black;
+        }
+    }
+}

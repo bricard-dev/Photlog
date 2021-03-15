@@ -23,6 +23,12 @@
                         </p>
                     </div>
                 </div>
+                <div class="card-cm mb-4">
+                    <div class="card-cm-body">
+                        <h4 class="card-cm-title">Popular stories</h4>
+                        {{ render(controller('App\\Controller\\Layout\\LayoutController::mostPopularPosts')) }}
+                    </div>
+                </div>
             </aside>
         </div>
     </div>

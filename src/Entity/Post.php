@@ -73,6 +73,11 @@ class Post
      */
     private $imageName;
 
+    /**
+     * @ORM\Column(type="integer", options={"default" = 0})
+     */
+    private $viewCounter = 0;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -163,6 +168,18 @@ class Post
     public function setImageName(?string $imageName): self
     {
         $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    public function getViewCounter(): ?int
+    {
+        return $this->viewCounter;
+    }
+
+    public function setViewCounter(int $viewCounter): self
+    {
+        $this->viewCounter = $viewCounter;
 
         return $this;
     }

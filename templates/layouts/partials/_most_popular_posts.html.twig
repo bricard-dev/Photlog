@@ -1,0 +1,13 @@
+{% for post in popularPosts %}
+    <a href="{{ path('app_post_show', {slug: post.slug}) }}">
+        <h6>{{ post.title }}</h6>
+        <img src="{{ vich_uploader_asset(post, 'imageFile') }}" class="card-cm-img img-demo" alt="{{ post.title }}">
+    </a>
+    <p class="mb-2">
+        {{ post.createdAt|ago }}
+        in
+        {% for category in post.categories %}  
+            <a href="{{ path('app_category_show', {slug: category.slug }) }}">{{ category.name }}</a>{{ not loop.last ? ',' }}
+        {% endfor %}
+    </p>
+{% endfor %}

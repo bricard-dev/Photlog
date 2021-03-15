@@ -3,6 +3,7 @@
 namespace App\Controller\Layout;
 
 use App\Repository\CategoryRepository;
+use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,6 +17,15 @@ class LayoutController extends AbstractController
         return $this->render('layouts/partials/_all_categories.html.twig', [
             'categories' => $categories,
             'class' => $class,
+        ]);
+    }
+
+    public function mostPopularPosts( PostRepository $postRepository): Response
+    {
+        $popularPosts = $postRepository->findBy([], ['viewCounter' => 'DESC'], 2);
+
+        return $this->render('layouts/partials/_most_popular_posts.html.twig', [
+            'popularPosts' => $popularPosts
         ]);
     }
 }
