@@ -9,12 +9,15 @@
         <hr>
     </div>
     <div class="row">
-        {% for col in posts|batch(3) %}
+        {% for col in pagination|batch(pagination.items|length / 2) %}
             <div class="col-md-6">
                 {% for post in col %}
                     {% include "posts/partials/_post.html.twig" %}
                 {% endfor %}
             </div>
         {% endfor %}
+    </div>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig', {}, { 'align': 'center'}) }}
     </div>
 {% endblock %}
