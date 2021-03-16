@@ -16,7 +16,7 @@ class PostsController extends AbstractController
     #[Route('/', name: 'app_home', methods: ['GET'])]
     public function index(Request $request, PaginatorInterface $paginator, PostRepository $postRepository): Response
     {
-        $posts = $postRepository->findBy([], ['createdAt' => 'DESC']);
+        $posts = $postRepository->findBy(['enabled' => true], ['createdAt' => 'DESC']);
 
         $pagination = $paginator->paginate($posts, $request->query->getInt('page', 1), Post::POST_PER_PAGE);
 

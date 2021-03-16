@@ -74,9 +74,14 @@ class Post
     private $imageName;
 
     /**
-     * @ORM\Column(type="integer", options={"default" = 0})
+     * @ORM\Column(type="integer", options={"default"=0})
      */
     private $viewCounter = 0;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default"=true})
+     */
+    private $enabled;
 
     public function __construct()
     {
@@ -180,6 +185,18 @@ class Post
     public function setViewCounter(int $viewCounter): self
     {
         $this->viewCounter = $viewCounter;
+
+        return $this;
+    }
+
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
 
         return $this;
     }
