@@ -1,0 +1,12 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title 'Dashboard' %}
+
+{% block page_content %}
+    <div class="container">
+        <a href="{{ postCrudUrl }}">Your posts</a>
+        <br>
+        <a href="{{ categoryCrudUrl }}">Your categories</a>
+    </div>
+{% endblock %}

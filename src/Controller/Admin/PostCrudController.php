@@ -37,19 +37,19 @@ class PostCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('title'),
-            TextEditorField::new('content'),
-            AssociationField::new('categories'),
+            ImageField::new('imageName', 'Image')
+                ->setBasePath('uploads/posts')
+                ->hideOnForm(),
             TextareaField::new('imageFile')
                 ->setFormType(VichImageType::class)
                 ->setLabel('Picture')
                 ->setFormTypeOption('allow_delete', false)
                 ->hideOnIndex(),
-            ImageField::new('imageName', 'Image')
-                ->setBasePath('uploads/posts')
-                ->hideOnForm(),
+            TextField::new('title'),
+            TextEditorField::new('content'),
             DateTimeField::new('createdAt')->onlyOnIndex(),
             DateTimeField::new('updatedAt')->onlyOnIndex(),
+            AssociationField::new('categories'),
         ];
     }
 }
