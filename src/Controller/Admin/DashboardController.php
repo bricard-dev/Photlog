@@ -29,9 +29,9 @@ class DashboardController extends AbstractDashboardController
         // return parent::index();
 
         // redirect to some CRUD controller
-        // $routeBuilder = $this->get(AdminUrlGenerator::class);
+        $routeBuilder = $this->get(AdminUrlGenerator::class);
 
-        // return $this->redirect($routeBuilder->setController(PostCrudController::class)->generateUrl());
+        return $this->redirect($routeBuilder->setController(PostCrudController::class)->generateUrl());
 
         // you can also redirect to different pages depending on the current user
         // if ('jane' === $this->getUser()->getUsername()) {
@@ -41,22 +41,22 @@ class DashboardController extends AbstractDashboardController
         // you can also render some template to display a proper Dashboard
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
 
-        $postCrudUrl = $this->adminUrlGenerator
-            ->setController(PostCrudController::class)
-            ->setAction(Action::INDEX)
-            ->generateUrl()
-        ;
+        // $postCrudUrl = $this->adminUrlGenerator
+        //     ->setController(PostCrudController::class)
+        //     ->setAction(Action::INDEX)
+        //     ->generateUrl()
+        // ;
 
-        $categoryCrudUrl = $this->adminUrlGenerator
-            ->setController(CategoryCrudController::class)
-            ->setAction(Action::INDEX)
-            ->generateUrl()
-        ;
+        // $categoryCrudUrl = $this->adminUrlGenerator
+        //     ->setController(CategoryCrudController::class)
+        //     ->setAction(Action::INDEX)
+        //     ->generateUrl()
+        // ;
 
-        return $this->render('bundles/EasyAdminBundle/dashboard.html.twig', [
-            'postCrudUrl' => $postCrudUrl,
-            'categoryCrudUrl' => $categoryCrudUrl,
-        ]);
+        // return $this->render('bundles/EasyAdminBundle/dashboard.html.twig', [
+        //     'postCrudUrl' => $postCrudUrl,
+        //     'categoryCrudUrl' => $categoryCrudUrl,
+        // ]);
     }
 
     public function configureDashboard(): Dashboard
@@ -68,7 +68,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         return [
-            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
+            // MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
             MenuItem::linkToRoute('Website', 'fas fa-globe-europe', 'app_home'),
 
             MenuItem::section('Blog'),

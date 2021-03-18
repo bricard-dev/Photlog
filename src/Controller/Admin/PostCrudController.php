@@ -3,21 +3,19 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Post;
-use App\Form\Type\Admin\DateCalendarFilterType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Menu\SectionMenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class PostCrudController extends AbstractCrudController
@@ -40,31 +38,36 @@ class PostCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id')
-                ->hideOnForm(),
-            BooleanField::new('enabled'),
-            ImageField::new('imageName', 'Image')
-                ->setBasePath('uploads/posts')
-                ->hideOnForm(),
-            TextareaField::new('imageFile', 'Picture')
-                ->setFormType(VichImageType::class)
-                ->setFormTypeOption('allow_delete', false)
-                ->hideOnIndex(),
-            TextField::new('title'),
-            TextEditorField::new('content'),
-            DateTimeField::new('createdAt')
-                ->onlyOnIndex(),
-                //->renderAsChoice(),
-            //DateTimeField::new('updatedAt')->onlyOnIndex(),
-            AssociationField::new('categories')
-                ->setTextAlign('left')
-                ->setTemplatePath('admin/field/category.html.twig'),
-            IntegerField::new('viewCounter', 'Viewed')
-                ->onlyOnIndex()
-                ->setTextAlign('center'),
+        $id = IdField::new('id');
+        $title = TextField::new('title');
+        $content = TextEditorField::new('content');
+        $enabled = BooleanField::new('enabled')->setFormattedValue(1);
+        $viewed = IntegerField::new('viewCounter', 'Viewed')->setTextAlign('left');
+        $imageName = ImageField::new('imageName', 'Image')->setBasePath('uploads/posts');
+        $imageFile = Field::new('imageFile', 'Image')
+            ->setFormType(VichImageType::class)
+            ->setFormTypeOption('allow_delete', false)
+            ->setHelp('Upload your picture in PNG or JPEG format');
+        $categories = AssociationField::new('categories')
+            ->setTextAlign('left')
+            ->setTemplatePath('admin/field/category.html.twig')
+            ->setHelp('Assign your post to at least one category');
+        $createdAt = DateTimeField::new('createdAt')->renderAsChoice();
+        $updatedAt = DateTimeField::new('updatedAt')->renderAsChoice();
+
+        $panelDescription = FormField::addPanel('Description')->setIcon('fas fa-quote-right');
+        $panelFile = FormField::addPanel('Picture')->setIcon('far fa-image');
                 
-        ];
+        if (Crud::PAGE_INDEX === $pageName) {
+            return [$enabled, $imageName, $title, $content, $createdAt, $categories, $viewed];
+        } elseif (Crud::PAGE_NEW === $pageName) {
+            $imageFile->setFormTypeOption('required', true);
+            return [$panelDescription, $title, $content, $categories, $enabled, $panelFile, $imageFile];
+        } elseif (Crud::PAGE_EDIT === $pageName) {
+            return [$panelDescription, $title, $content, $categories, $enabled, $panelFile, $imageFile];
+        } else {
+            return [$id, $title, $content, $enabled, $viewed, $imageName, $imageFile, $categories, $createdAt, $updatedAt];
+        }  
     }
 
     public function configureFilters(Filters $filters): Filters

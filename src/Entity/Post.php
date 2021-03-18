@@ -61,8 +61,11 @@ class Post
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="post_image", fileNameProperty="imageName")
-     * @Assert\Image(maxSize="8M")
-     * @Assert\NotBlank(message="You should upload a picture")
+     * @Assert\Image(
+     *     maxSize="8M",
+     *     mimeTypes={"image/png", "image/jpeg"},
+     *     mimeTypesMessage="Please upload a valid image (.png, .jpeg)"
+     * )
      * 
      * @var File|null
      */
