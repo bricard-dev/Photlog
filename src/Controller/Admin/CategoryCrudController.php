@@ -24,7 +24,7 @@ class CategoryCrudController extends AbstractCrudController
             ->setEntityLabelInSingular('Category')
             ->setEntityLabelInPlural('Categories')
             ->setSearchFields(['id', 'name'])
-            ->setDateTimeFormat('d/MM/Y H:mm a')
+            ->setDateTimeFormat('MMM. dd, yyyy')
             ->setPaginatorPageSize(10)
             ->setPaginatorPageSize(10)
         ;
@@ -38,7 +38,7 @@ class CategoryCrudController extends AbstractCrudController
             TextField::new('slug')->hideOnForm(),
             AssociationField::new('posts')->onlyOnIndex(),
             DateTimeField::new('createdAt')->hideOnForm(),
-            DateTimeField::new('updatedAt')->hideOnForm(),
+            // DateTimeField::new('updatedAt')->hideOnForm(),
         ];
     }
 }
