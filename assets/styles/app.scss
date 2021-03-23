@@ -129,3 +129,22 @@ aside {
         }
     }
 }
+
+.comment {
+    background-color: #f2f4f5;
+    padding: 1rem;
+}
+
+.form-control {
+    border-radius: 0;
+    font-size: 0.875rem;
+
+    &:focus {
+        border-color: black; 
+        box-shadow: none;
+    }
+}
+
+.btn-cm {
+    font-size: .875rem;
+}

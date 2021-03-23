@@ -22,6 +22,31 @@
                 <p class="card-cm-text">
                     {{ post.content|raw }}
                 </p>
+                <hr>
+                <div class="comments">
+                    <h3>{{ pluralize(comments|length, 'comment') }}</h3>
+                    {% for comment in comments %}
+                        <div class="comment mb-3">
+                            <header class="comment-header">
+                                <h6>{{ comment.author }}</h6>
+                            </header>
+                            <div class="comment-body">
+                                <p class="mb-2">{{ comment.content }}</p> 
+                            </div>
+                            <div class="comment-meta">
+                                <p class="text-muted mb-0">{{ comment.createdAt|ago }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="mt-5">
+                        <h5>Write a response</h5>
+                        {{ form_start(form) }}
+                            {{ form_widget(form) }}
+
+                            <input class="btn btn-success btn-cm mt-2" type="submit" value="Publish" formnovalidate>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
             </div>
         </article>
     </div>

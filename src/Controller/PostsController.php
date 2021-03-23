@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Form\CommentFormType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Gedmo\Mapping\Annotation\Slug;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PostsController extends AbstractController
 {
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
     #[Route('/', name: 'app_home', methods: ['GET'])]
     public function index(Request $request, PaginatorInterface $paginator, PostRepository $postRepository): Response
     {
@@ -27,16 +37,32 @@ class PostsController extends AbstractController
         ]);
     }
 
-    #[Route('/posts/{slug}', name: 'app_post_show', methods: ['GET'])]
-    public function show(Post $post, EntityManagerInterface $em): Response
+    #[Route('/posts/{slug}', name: 'app_post_show', methods: ['GET', 'POST'])]
+    public function show(Request $request, Post $post, EntityManagerInterface $em): Response
     {   
         $count = $post->getViewCounter();
         $post->setViewCounter($count + 1);
 
         $em->flush();
 
+        $comment = new Comment;
+        $form = $this->createForm(CommentFormType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setPost($post);
+            $this->em->persist($comment);
+            $this->em->flush();
+
+            //$this->addFlash('success', 'Pin successfully created');
+
+            return $this->redirectToRoute('app_post_show', ['slug' => $post->getSlug()]);
+        }
+
         return $this->render('posts/show.html.twig', [
             'post' => $post,
+            'comments' => $post->getComments(),
+            'form' => $form->createView(),
         ]);
     }
 }
