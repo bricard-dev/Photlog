@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Post;
+use App\Repository\PostRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,9 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends AbstractController
 {
     #[Route('/categories/{slug}', name: 'app_category_show', methods: ['GET'])]
-    public function show(Request $request, PaginatorInterface $paginator, Category $category, ): Response
+    public function show(Request $request, PaginatorInterface $paginator, Category $category, PostRepository $postRepository): Response
     {
-        $pagination = $paginator->paginate($category->getPosts(), $request->query->getInt('page', 1), Post::POST_PER_PAGE);
+        $pagination = $paginator->paginate(array_reverse($category->getPosts()->toArray()), $request->query->getInt('page', 1), Post::POST_PER_PAGE);
 
         return $this->render('categories/show.html.twig', [
             'category' => $category,

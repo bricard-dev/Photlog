@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Traits\Timestampable;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
@@ -14,6 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Comment
 {
     use Timestampable;
+
+    const COMMENT_PER_PAGE = 5;
     
     /**
      * @ORM\Id
@@ -24,11 +27,19 @@ class Comment
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $author;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min=5,
+     *      max=500,
+     *      minMessage="Your comment must be at least {{ limit }} characters long",
+     *      maxMessage="Your comment cannot be longer than {{ limit }} characters"
+     * )
      */
     private $content;
 

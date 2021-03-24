@@ -23,7 +23,8 @@ class CommentFormType extends AbstractType
             ->add('content', TextareaType::class, [
                 'label' => false,
                 'attr' => array(
-                    'placeholder' => 'Your comment'
+                    'placeholder' => 'Your comment',
+                    'rows' => '3',
                 ),
             ])
             //->add('createdAt')

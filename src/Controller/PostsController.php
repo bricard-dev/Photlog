@@ -30,20 +30,21 @@ class PostsController extends AbstractController
 
         $pagination = $paginator->paginate($posts, $request->query->getInt('page', 1), Post::POST_PER_PAGE);
 
-        //dd($pagination->getItems());
-
         return $this->render('posts/index.html.twig', [
             'pagination' => $pagination,
         ]);
     }
 
     #[Route('/posts/{slug}', name: 'app_post_show', methods: ['GET', 'POST'])]
-    public function show(Request $request, Post $post, EntityManagerInterface $em): Response
+    public function show(Request $request, PaginatorInterface $paginator, Post $post, EntityManagerInterface $em): Response
     {   
         $count = $post->getViewCounter();
         $post->setViewCounter($count + 1);
 
         $em->flush();
+
+        $comments = $post->getComments();
+        $pagination = $paginator->paginate($comments, $request->query->getInt('page', 1), Comment::COMMENT_PER_PAGE);
 
         $comment = new Comment;
         $form = $this->createForm(CommentFormType::class, $comment);
@@ -54,14 +55,13 @@ class PostsController extends AbstractController
             $this->em->persist($comment);
             $this->em->flush();
 
-            //$this->addFlash('success', 'Pin successfully created');
-
             return $this->redirectToRoute('app_post_show', ['slug' => $post->getSlug()]);
         }
 
         return $this->render('posts/show.html.twig', [
             'post' => $post,
-            'comments' => $post->getComments(),
+            'comments' => $comments,
+            'pagination' => $pagination,
             'form' => $form->createView(),
         ]);
     }
