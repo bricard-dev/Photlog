@@ -84,7 +84,7 @@ class Post
     /**
      * @ORM\Column(type="boolean", options={"default"=true})
      */
-    private $enabled;
+    private $isEnable = true;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post", orphanRemoval=true)
@@ -198,14 +198,14 @@ class Post
         return $this;
     }
 
-    public function getEnabled(): ?bool
+    public function getIsEnable(): ?bool
     {
-        return $this->enabled;
+        return $this->isEnable;
     }
 
-    public function setEnabled(bool $enabled): self
+    public function setIsEnable(bool $isEnable): self
     {
-        $this->enabled = $enabled;
+        $this->isEnable = $isEnable;
 
         return $this;
     }

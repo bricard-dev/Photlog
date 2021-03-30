@@ -22,7 +22,7 @@ class LayoutController extends AbstractController
 
     public function mostPopularPosts( PostRepository $postRepository): Response
     {
-        $popularPosts = $postRepository->findBy([], ['viewCounter' => 'DESC'], 2);
+        $popularPosts = $postRepository->findBy(['isEnable' => 'true'], ['viewCounter' => 'DESC'], 2);
 
         return $this->render('layouts/partials/_most_popular_posts.html.twig', [
             'popularPosts' => $popularPosts

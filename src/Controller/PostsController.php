@@ -7,11 +7,13 @@ use App\Entity\Post;
 use App\Form\CommentFormType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Gedmo\Mapping\Annotation\Slug;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PostsController extends AbstractController
@@ -26,7 +28,7 @@ class PostsController extends AbstractController
     #[Route('/', name: 'app_home', methods: ['GET'])]
     public function index(Request $request, PaginatorInterface $paginator, PostRepository $postRepository): Response
     {
-        $posts = $postRepository->findBy(['enabled' => true], ['createdAt' => 'DESC']);
+        $posts = $postRepository->findBy(['isEnable' => true], ['createdAt' => 'DESC']);
 
         $pagination = $paginator->paginate($posts, $request->query->getInt('page', 1), Post::POST_PER_PAGE);
 
@@ -38,6 +40,10 @@ class PostsController extends AbstractController
     #[Route('/posts/{slug}', name: 'app_post_show', methods: ['GET', 'POST'])]
     public function show(Request $request, PaginatorInterface $paginator, Post $post, EntityManagerInterface $em): Response
     {   
+        if (!$post->getIsEnable()) {
+            throw new NotFoundHttpException('Failed to access to this post because it is not enable');
+        }
+
         $count = $post->getViewCounter();
         $post->setViewCounter($count + 1);
 

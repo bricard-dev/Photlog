@@ -41,7 +41,7 @@ class PostCrudController extends AbstractCrudController
         $id = IdField::new('id');
         $title = TextField::new('title');
         $content = TextEditorField::new('content');
-        $enabled = BooleanField::new('enabled')->setFormattedValue(1);
+        $isEnable = BooleanField::new('isEnable', 'Enable')->setFormattedValue(1);
         $viewed = IntegerField::new('viewCounter', 'Viewed')->setTextAlign('left');
         $imageName = ImageField::new('imageName', 'Image')->setBasePath('uploads/posts');
         $imageFile = Field::new('imageFile', 'Image')
@@ -59,14 +59,14 @@ class PostCrudController extends AbstractCrudController
         $panelFile = FormField::addPanel('Picture')->setIcon('far fa-image');
                 
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$enabled, $imageName, $title, $content, $createdAt, $categories, $viewed];
+            return [$isEnable, $imageName, $title, $content, $createdAt, $categories, $viewed];
         } elseif (Crud::PAGE_NEW === $pageName) {
             $imageFile->setFormTypeOption('required', true);
-            return [$panelDescription, $title, $content, $categories, $enabled, $panelFile, $imageFile];
+            return [$panelDescription, $title, $content, $categories, $isEnable, $panelFile, $imageFile];
         } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [$panelDescription, $title, $content, $categories, $enabled, $panelFile, $imageFile];
+            return [$panelDescription, $title, $content, $categories, $isEnable, $panelFile, $imageFile];
         } else {
-            return [$id, $title, $content, $enabled, $viewed, $imageName, $imageFile, $categories, $createdAt, $updatedAt];
+            return [$id, $title, $content, $isEnable, $viewed, $imageName, $imageFile, $categories, $createdAt, $updatedAt];
         }  
     }
 
