@@ -61,6 +61,7 @@ class PostsController extends AbstractController
             $this->em->persist($comment);
             $this->em->flush();
 
+            $this->addFlash('success', 'Your comment has been added!');
             return $this->redirectToRoute('app_post_show', ['slug' => $post->getSlug()]);
         }
 
