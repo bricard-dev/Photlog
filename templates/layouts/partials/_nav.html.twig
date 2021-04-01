@@ -25,8 +25,8 @@
 				<li class="nav-item {{ app.request.get('_route') == 'app_about' ? 'active' : '' }}">
 					<a class="nav-link" href="{{ path('app_about') }}">About</a>
 				</li>
-				<li class="nav-item {{ app.request.get('_route') == '' ? 'active' : '' }}">
-					<a class="nav-link" href="#">Contact</a>
+				<li class="nav-item {{ app.request.get('_route') == 'app_contact' ? 'active' : '' }}">
+					<a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
 				</li>
 			</ul>
 		</div>

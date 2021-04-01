@@ -2,10 +2,17 @@
 
 namespace App\Controller\Layout;
 
+use App\Entity\Category;
+use App\Entity\Contact;
+use App\Form\ContactType;
 use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LayoutController extends AbstractController
@@ -33,5 +40,32 @@ class LayoutController extends AbstractController
     public function about(): Response
     {
         return $this->render('layouts/about.html.twig');
+    }
+
+    #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'])]
+    public function index(Request $request, MailerInterface $mailer): Response
+    {
+        $contact = new Contact;
+
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $email = (new Email)
+                ->from('noreply@bastienricard.fr')
+                ->to('contact@bastienricard.fr')
+                ->replyTo($contact->getEmail())
+                ->subject('Contact from Photlog : ' . $contact->getFirstName() . ' ' . $contact->getLastName())
+                ->text($contact->getMessage()); 
+
+            $mailer->send($email);
+
+            $this->addFlash('success', 'Your message has been sent!');
+            return $this->redirectToRoute('app_contact');
+        }
+
+        return $this->render('layouts/contact.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

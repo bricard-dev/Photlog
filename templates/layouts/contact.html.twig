@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-8 mx-auto">
+			<article class="card-cm mb-4">
+				<header class="card-cm-header text-center">
+					<h1 class="card-cm-title">Contact us</h1>
+				</header>
+				<div class="card-cm-body">
+					<p>
+						Sed vel tortor at metus consectetur pulvinar nec sit amet massa. Vestibulum luctus enim venenatis gravida sagittis. Aliquam erat volutpat. Morbi posuere ipsum eu felis laoreet, quis pharetra nunc vehicula. Nunc id ante augue. Morbi pellentesque orci id aliquet maximus. Morbi faucibus dui laoreet erat viverra, a ullamcorper nisi hendrerit. Vestibulum eget mollis dui, id iaculis urna.
+					</p>
+					<div class="contact mt-3">
+						{{ form_start(form) }}
+							<div class="row">
+								<div class="col-md-6">
+									{{ form_row(form.firstName) }}
+								</div>
+								<div class="col-md-6">
+									{{ form_row(form.lastName) }}
+								</div>
+							</div>
+							{{ form_widget(form) }}
+							<input class="btn btn-success btn-cm" type="submit" value="Send">
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</article>
+		</div>
+	</div>
+{% endblock %}
