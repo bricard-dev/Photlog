@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Category;
+use App\Entity\Comment;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -10,27 +10,27 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class CategoryCrudController extends AbstractCrudController
+class CommentCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Category::class;
+        return Comment::class;
     }
 
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('Post')
-            ->setEntityLabelInPlural('Posts')
-            ->setSearchFields(['id', 'title'])
-            ->setDateTimeFormat('MM/dd/Y hh:mm a')
-            ->setPaginatorPageSize(10)
-            ->setDefaultSort(['updatedAt' => 'DESC'])
+        ->setEntityLabelInSingular('Comment')
+        ->setEntityLabelInPlural('Comments')
+        ->setSearchFields(['author', 'post.title', 'content'])
+        ->setDateTimeFormat('MM/dd/Y hh:mm a')
+        ->setPaginatorPageSize(10)
+        ->setDefaultSort(['updatedAt' => 'DESC'])
         ;
     }
 
@@ -38,6 +38,7 @@ class CategoryCrudController extends AbstractCrudController
     {
         return $actions
             ->add(Action::DETAIL, 'detail')
+            ->disable(Action::NEW, Action::EDIT)
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->remove(Crud::PAGE_DETAIL, Action::DETAIL)
         ;
@@ -46,49 +47,44 @@ class CategoryCrudController extends AbstractCrudController
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
-            ->add('name')
+            ->add('author')
+            ->add('post')
         ;
     }
 
     public function configureFields(string $pageName): iterable
     {
-        
         $id = IdField::new('id');
-        $name = TextField::new('name');
-        $slug = TextField::new('slug')
-            ->setHelp('Adress of your category page')
-            ->formatValue(function ($value) {
-                return "/{$value}";
-            });
-        $posts = AssociationField::new('posts')->setTextAlign('left');
-        $createdAt = DateTimeField::new('createdAt')->renderAsChoice();
+        $author = TextField::new('author');
+        $content = TextareaField::new('content');
+        $post = AssociationField::new('post');
+        $createdAt = DateTimeField::new('createdAt');
         $updatedAt = DateTimeField::new('updatedAt');
 
         if (Crud::PAGE_INDEX === $pageName) {
-            return [
-                $name, 
-                $slug,
-                $posts, 
+            return [ 
+                $author, 
+                $content,
+                $post,
                 $createdAt
             ];
         } elseif (Crud::PAGE_NEW === $pageName) {
             return [
-                $name
+                $author, 
+                $content
             ];
         } elseif (Crud::PAGE_EDIT === $pageName) {
             return [
-                $name, 
-                $createdAt
-            ];
+                $author, 
+                $content];
         } else {
             return [
                 // $id, 
-                $name, 
-                $slug, 
-                $posts->setHelp('Number of post associated with this category'), 
+                $author, 
+                $content,
+                $post->setHelp('The post associate with this comment'), 
                 $createdAt, 
-                $updatedAt
-            ];
-        }  
+                $updatedAt];
+        } 
     }
 }

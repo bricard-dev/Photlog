@@ -41,7 +41,7 @@ class Category
     private $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Post::class, mappedBy="categories", cascade="remove")
+     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="category")
      */
     private $posts;
 
@@ -72,6 +72,11 @@ class Category
         return $this->slug;
     }
 
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     /**
      * @return Collection|Post[]
      */
@@ -84,7 +89,7 @@ class Category
     {
         if (!$this->posts->contains($post)) {
             $this->posts[] = $post;
-            $post->addCategory($this);
+            $post->setCategory($this);
         }
 
         return $this;
@@ -93,14 +98,12 @@ class Category
     public function removePost(Post $post): self
     {
         if ($this->posts->removeElement($post)) {
-            $post->removeCategory($this);
+            // set the owning side to null (unless already changed)
+            if ($post->getCategory() === $this) {
+                $post->setCategory(null);
+            }
         }
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->name;
     }
 }

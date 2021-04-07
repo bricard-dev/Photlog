@@ -10,9 +10,7 @@
                     <p class="mb-2">
                         {{ post.createdAt|ago }}
                         in
-                        {% for category in post.categories %}
-                            <a href="{{ path('app_category_show', {slug: category.slug}) }}">{{ category.name }}</a>
-                        {% endfor %}
+                        <a href="{{ path('app_category_show', {slug: post.category.slug}) }}">{{ post.category.name }}</a>
                     </p>
                 </div>
                 <h1 class="card-cm-title">{{ post.title }}</h1>

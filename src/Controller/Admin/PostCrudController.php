@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Post;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -14,7 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -31,8 +33,26 @@ class PostCrudController extends AbstractCrudController
             ->setEntityLabelInSingular('Post')
             ->setEntityLabelInPlural('Posts')
             ->setSearchFields(['id', 'title'])
-            ->setDateTimeFormat('MMM. dd, yyyy')
+            ->setDateTimeFormat('MM/dd/Y hh:mm a')
             ->setPaginatorPageSize(10)
+            ->setDefaultSort(['updatedAt' => 'DESC'])
+        ;
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->add(Action::DETAIL, 'detail')
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+            ->remove(Crud::PAGE_DETAIL, Action::DETAIL)
+        ;
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('title')
+            ->add('category')
         ;
     }
 
@@ -40,7 +60,12 @@ class PostCrudController extends AbstractCrudController
     {
         $id = IdField::new('id');
         $title = TextField::new('title');
-        $content = TextEditorField::new('content');
+        $slug = TextField::new('slug')
+            ->setHelp('Adress of your post page')
+            ->formatValue(function($value) {
+                return "/{$value}";
+            });
+        $content = TextareaField::new('content');
         $isEnable = BooleanField::new('isEnable', 'Enable')->setFormattedValue(1);
         $viewed = IntegerField::new('viewCounter', 'Viewed')->setTextAlign('left');
         $imageName = ImageField::new('imageName', 'Image')->setBasePath('uploads/posts');
@@ -48,33 +73,62 @@ class PostCrudController extends AbstractCrudController
             ->setFormType(VichImageType::class)
             ->setFormTypeOption('allow_delete', false)
             ->setHelp('Upload your picture in PNG or JPEG format');
-        $categories = AssociationField::new('categories')
-            ->setTextAlign('left')
-            ->setTemplatePath('admin/field/category.html.twig')
-            ->setHelp('Assign your post to at least one category');
+        $category = AssociationField::new('category');
         $createdAt = DateTimeField::new('createdAt')->renderAsChoice();
         $updatedAt = DateTimeField::new('updatedAt')->renderAsChoice();
+        $comments = AssociationField::new('comments')
+            ->setTextAlign('left');
 
         $panelDescription = FormField::addPanel('Description')->setIcon('fas fa-quote-right');
         $panelFile = FormField::addPanel('Picture')->setIcon('far fa-image');
                 
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$isEnable, $imageName, $title, $content, $createdAt, $categories, $viewed];
+            return [
+                $isEnable, 
+                $imageName, 
+                $title,
+                $content,
+                $category, 
+                $comments, 
+                $viewed, 
+                $createdAt,
+            ];
         } elseif (Crud::PAGE_NEW === $pageName) {
-            $imageFile->setFormTypeOption('required', true);
-            return [$panelDescription, $title, $content, $categories, $isEnable, $panelFile, $imageFile];
+            return [
+                $panelDescription,
+                $title, 
+                $content, 
+                $category->setHelp('Assign your post to a category'), 
+                $isEnable, 
+                $panelFile, 
+                $imageFile->setFormTypeOption('required', true),
+            ];
         } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [$panelDescription, $title, $content, $categories, $isEnable, $panelFile, $imageFile];
+            return [
+                $panelDescription, 
+                $title, 
+                $content, 
+                $category->setHelp('Assign your post to a category'), 
+                $isEnable,
+                $createdAt,
+                $panelFile, 
+                $imageFile,
+            ];
         } else {
-            return [$id, $title, $content, $isEnable, $viewed, $imageName, $imageFile, $categories, $createdAt, $updatedAt];
+            return [
+                $panelDescription, 
+                // $id, 
+                $title, 
+                $slug,
+                $content, 
+                $isEnable, 
+                $viewed, 
+                $category, 
+                $createdAt, 
+                $updatedAt,
+                $panelFile,
+                $imageName, 
+            ];
         }  
-    }
-
-    public function configureFilters(Filters $filters): Filters
-    {
-        return $filters
-            ->add('title')
-            ->add('categories')
-        ;
     }
 }

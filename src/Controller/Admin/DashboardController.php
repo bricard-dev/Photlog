@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
+use App\Entity\Comment;
 use App\Entity\Post;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -74,6 +75,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::section('Blog'),
             MenuItem::linkToCrud('Categories', 'fa fa-tags', Category::class),
             MenuItem::linkToCrud('Posts', 'far fa-newspaper', Post::class),
+            MenuItem::linkToCrud('Comments', 'fas fa-comment', Comment::class),
 
             //MenuItem::section('Users'),
             //MenuItem::linkToCrud('Comments', 'fa fa-comment', Comment::class),

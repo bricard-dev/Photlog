@@ -79,6 +79,12 @@ body {
     .card-cm-body {
         padding: 1.5rem;
     }
+
+    p {
+        &.card-cm-text {
+            margin-bottom: 0;
+        }
+    }
 }
 
 .btn {

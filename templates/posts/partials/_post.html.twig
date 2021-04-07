@@ -4,9 +4,7 @@
             <p class="mb-2">
                 {{ post.createdAt|ago }}
                 in
-                {% for category in post.categories %}
-                    <a href="{{ path('app_category_show', {slug: category.slug }) }}">{{ category.name }}</a>{{ not loop.last ? ',' }}
-                {% endfor %}
+                <a href="{{ path('app_category_show', {slug: post.category.slug }) }}">{{ post.category.name }}</a>
             </p>
         </div>
         <a href="{{ path('app_post_show', {slug: post.slug}) }}">
