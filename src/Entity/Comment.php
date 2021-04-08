@@ -32,6 +32,12 @@ class Comment
     private $author;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
+     */
+    private $email;
+
+    /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
      * @Assert\Length(
@@ -62,6 +68,18 @@ class Comment
     public function setAuthor(string $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

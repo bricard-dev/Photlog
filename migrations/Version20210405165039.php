@@ -14,7 +14,7 @@ final class Version20210405165039 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Replace ManyToMany to ManyToOne relation between posts and categories table';
     }
 
     public function up(Schema $schema) : void

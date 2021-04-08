@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -56,6 +57,7 @@ class CommentCrudController extends AbstractCrudController
     {
         $id = IdField::new('id');
         $author = TextField::new('author');
+        $email = EmailField::new('email');
         $content = TextareaField::new('content');
         $post = AssociationField::new('post');
         $createdAt = DateTimeField::new('createdAt');
@@ -63,20 +65,16 @@ class CommentCrudController extends AbstractCrudController
 
         if (Crud::PAGE_INDEX === $pageName) {
             return [ 
-                $author, 
+                $author,
+                $email, 
                 $content,
                 $post,
                 $createdAt
             ];
         } elseif (Crud::PAGE_NEW === $pageName) {
-            return [
-                $author, 
-                $content
-            ];
+            return [];
         } elseif (Crud::PAGE_EDIT === $pageName) {
-            return [
-                $author, 
-                $content];
+            return [];
         } else {
             return [
                 // $id, 
