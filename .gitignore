@@ -23,7 +23,7 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 ###> symfony/vich-uploader-bundle ###
-/public/uploads/
+/public/uploads/posts
 ###< symfony/vich-uploader-bundle ###
 
 ###> custom ###

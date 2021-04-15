@@ -32,6 +32,9 @@
     "doctrine/dbal": {
         "version": "2.12.1"
     },
+    "doctrine/deprecations": {
+        "version": "v0.5.3"
+    },
     "doctrine/doctrine-bundle": {
         "version": "2.0",
         "recipe": {
@@ -592,6 +595,9 @@
     },
     "symfony/yaml": {
         "version": "v5.2.3"
+    },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.3.0"
     },
     "twig/extra-bundle": {
         "version": "v3.3.0"

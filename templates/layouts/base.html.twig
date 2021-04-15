@@ -14,19 +14,6 @@
         {% endblock %}
     </head>
     <body>
-        <header>
-            {% include "layouts/partials/_nav.html.twig" %}
-        </header>
-
-		<main role="main">
-            {% for message in app.flashes('success') %}
-                <div class="alert alert-success text-center">
-                    {{ message }}
-                </div>
-            {% endfor %} 
-            <div class="container pt-4">
-			    {% block body %}{% endblock %}
-            </div>
-		</main>
+		{% block body %}{% endblock %}
     </body>
 </html>

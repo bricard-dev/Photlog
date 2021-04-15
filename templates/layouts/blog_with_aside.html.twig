@@ -1,0 +1,35 @@
+{% extends 'layouts/blog.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-9">
+            {% block mainContent %}{% endblock %}
+        </div>
+        <div class="col-md-3">
+            <aside class="sidebar">
+                <div class="card-cm mb-4">
+                    <div class="card-cm-body">
+                        <h4 class="card-cm-title">About</h4>
+                        <p class="card-cm-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis possimus quis cum voluptate dolorem.</p>
+                    </div>
+                </div>
+            </aside>
+            <aside class="sidebar-sticky sticky-top">
+                <div class="card-cm mb-4">
+                    <div class="card-cm-body">
+                        <h4 class="card-cm-title">Categories</h4>
+                        <p>
+                            {{ render(controller('App\\Controller\\Layout\\LayoutController::allCategories', { 'class': 'btn btn-light btn-sm mb-1'})) }}
+                        </p>
+                    </div>
+                </div>
+                <div class="card-cm mb-4">
+                    <div class="card-cm-body">
+                        <h4 class="card-cm-title">Popular stories</h4>
+                        {{ render(controller('App\\Controller\\Layout\\LayoutController::mostPopularPosts')) }}
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+{% endblock %}
