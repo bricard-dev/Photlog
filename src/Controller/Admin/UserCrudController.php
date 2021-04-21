@@ -14,7 +14,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use App\Form\RoleType;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -67,10 +69,22 @@ class UserCrudController extends AbstractCrudController
                 'Administrator' => 'ROLE_ADMIN',
                 'Editor' => 'ROLE_EDITOR',
             ]);
-        $password = TextField::new('password');
-            // ->setFormType(PasswordType::class);
+        $password = TextField::new('plainPassword', 'Password')
+            ->setFormType(RepeatedType::class)
+            ->setFormTypeOptions([
+                // 'type' => PasswordType::class,
+                'required' => 'true',
+                'invalid_message' => 'The password fields must match.',
+                'first_options' => ['label' => 'Password'],
+                'second_options' => ['label' => 'Confirm password'],
+            ]);
         $createdAt = DateTimeField::new('createdAt')->renderAsChoice();
         $updatedAt = DateTimeField::new('updatedAt');
+
+        $panelGeneral = FormField::addPanel('Generals informations')->setIcon('fas fa-user');
+        $panelAuthentication = FormField::addPanel('Authentication')->setIcon('fas fa-lock');
+        $panelAuthorization = FormField::addPanel('Authorization')->setIcon('fas fa-id-badge');
+        $panelOthersInformations = FormField::addPanel('Others informations')->setIcon('fas fa-info-circle');
 
         if (Crud::PAGE_INDEX === $pageName) {
             return [
@@ -81,26 +95,35 @@ class UserCrudController extends AbstractCrudController
             ];
         } elseif (Crud::PAGE_NEW === $pageName) {
             return [
+                $panelGeneral,
                 $username,
                 $email,
+                $panelAuthentication->setHelp('Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter 1 one number'),
                 $password,
+                $panelAuthorization,
                 $roles
             ];
         } elseif (Crud::PAGE_EDIT === $pageName) {
             return [
+                $panelGeneral,
                 $username,
                 $email,
-                $password,
-                // $password->setFormTypeOption('required', false), 
+                $panelAuthentication->setHelp('Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter 1 one number'),
+                $password->setFormTypeOption('required', false), 
+                $panelAuthorization,
                 $roles,
+                $panelOthersInformations,
                 $createdAt
             ];
         } else {
             return [
+                $panelGeneral,
                 // $id, 
                 $username,
                 $email,
+                $panelAuthorization,
                 $roles,
+                $panelOthersInformations,
                 $createdAt, 
                 $updatedAt
             ];

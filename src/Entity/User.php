@@ -7,13 +7,14 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="users")
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity(fields={"email"}, message="There is already a post with this email")
- * @UniqueEntity(fields={"username"}, message="There is already a post with this username")
+ * @UniqueEntity(fields={"email"}, message="There is already a user with this email")
+ * @UniqueEntity(fields={"username"}, message="There is already a user with this username")
  */
 class User implements UserInterface
 {
@@ -33,6 +34,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(message="The email '{{ value }}' is not a valid email.")
      */
     private $email;
 
@@ -40,6 +42,12 @@ class User implements UserInterface
      * @ORM\Column(type="json")
      */
     private $roles = [];
+
+    /**
+     * @Assert\Length(max=4096)
+     * @Assert\Regex("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[A-Za-z0-9]+.{7,}$/", message="This value does not correspond to the requested constraints.")
+     */
+    private $plainPassword;
 
     /**
      * @var string The hashed password
@@ -91,6 +99,18 @@ class User implements UserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }

@@ -4,7 +4,6 @@ namespace App\EventSubscriber;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Event\AfterCrudActionEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -26,12 +25,7 @@ class UserAdminSubscriber implements EventSubscriberInterface
         return [
             BeforeEntityPersistedEvent::class => ['addUser'],
             BeforeEntityUpdatedEvent::class => ['updateUser'], //surtout utile lors d'un reset de mot passe plutôt qu'un réel update, car l'update va de nouveau encrypter le mot de passe DEJA encrypté ...
-            AfterCrudActionEvent::class => ['updateUser2'],
         ];
-    }
-
-    public function updateUser2(AfterCrudActionEvent $event) {
-        //dd('ok');
     }
 
     public function updateUser(BeforeEntityUpdatedEvent $event)
@@ -39,6 +33,11 @@ class UserAdminSubscriber implements EventSubscriberInterface
         $entity = $event->getEntityInstance();
 
         if (!($entity instanceof User)) {
+            return;
+        }
+
+        if (!$entity->getPlainPassword())
+        {
             return;
         }
         $this->setPassword($entity);
@@ -59,7 +58,7 @@ class UserAdminSubscriber implements EventSubscriberInterface
      */
     public function setPassword(User $entity): void
     {
-        $pass = $entity->getPassword();
+        $pass = $entity->getPlainPassword();
 
         $entity->setPassword(
             $this->passwordEncoder->encodePassword(
