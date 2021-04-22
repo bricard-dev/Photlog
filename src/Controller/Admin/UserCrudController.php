@@ -59,6 +59,8 @@ class UserCrudController extends AbstractCrudController
     {
         
         $id = IdField::new('id');
+        $firstName = TextField::new('firstName', 'First name');
+        $lastName = TextField::new('lastName', 'Last name');
         $username = TextField::new('username');
         $email = EmailField::new('email');
         $roles = ChoiceField::new('roles', 'Role')
@@ -88,6 +90,8 @@ class UserCrudController extends AbstractCrudController
 
         if (Crud::PAGE_INDEX === $pageName) {
             return [
+                $firstName,
+                $lastName,
                 $username,
                 $email,
                 $roles,
@@ -96,6 +100,8 @@ class UserCrudController extends AbstractCrudController
         } elseif (Crud::PAGE_NEW === $pageName) {
             return [
                 $panelGeneral,
+                $firstName,
+                $lastName,
                 $username,
                 $email,
                 $panelAuthentication->setHelp('Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter 1 one number'),
@@ -106,6 +112,8 @@ class UserCrudController extends AbstractCrudController
         } elseif (Crud::PAGE_EDIT === $pageName) {
             return [
                 $panelGeneral,
+                $firstName,
+                $lastName,
                 $username,
                 $email,
                 $panelAuthentication->setHelp('Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter 1 one number'),
