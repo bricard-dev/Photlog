@@ -13,10 +13,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use App\Form\RoleType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use App\Form\RoleType;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -83,7 +82,7 @@ class UserCrudController extends AbstractCrudController
         $createdAt = DateTimeField::new('createdAt')->renderAsChoice();
         $updatedAt = DateTimeField::new('updatedAt');
 
-        $panelGeneral = FormField::addPanel('Generals informations')->setIcon('fas fa-user');
+        $panelGeneralsInformations = FormField::addPanel('Generals informations')->setIcon('fas fa-user');
         $panelAuthentication = FormField::addPanel('Authentication')->setIcon('fas fa-lock');
         $panelAuthorization = FormField::addPanel('Authorization')->setIcon('fas fa-id-badge');
         $panelOthersInformations = FormField::addPanel('Others informations')->setIcon('fas fa-info-circle');
@@ -99,7 +98,7 @@ class UserCrudController extends AbstractCrudController
             ];
         } elseif (Crud::PAGE_NEW === $pageName) {
             return [
-                $panelGeneral,
+                $panelGeneralsInformations,
                 $firstName,
                 $lastName,
                 $username,
@@ -111,7 +110,7 @@ class UserCrudController extends AbstractCrudController
             ];
         } elseif (Crud::PAGE_EDIT === $pageName) {
             return [
-                $panelGeneral,
+                $panelGeneralsInformations,
                 $firstName,
                 $lastName,
                 $username,
@@ -125,7 +124,7 @@ class UserCrudController extends AbstractCrudController
             ];
         } else {
             return [
-                $panelGeneral,
+                $panelGeneralsInformations,
                 // $id, 
                 $username,
                 $email,

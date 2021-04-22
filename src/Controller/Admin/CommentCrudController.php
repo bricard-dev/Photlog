@@ -42,6 +42,7 @@ class CommentCrudController extends AbstractCrudController
             ->disable(Action::NEW, Action::EDIT)
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->remove(Crud::PAGE_DETAIL, Action::DETAIL)
+            ->setPermission(Action::DELETE, 'ROLE_ADMIN')
         ;
     }
 

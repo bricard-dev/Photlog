@@ -71,14 +71,14 @@ class DashboardController extends AbstractDashboardController
     {
         return [
             // MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
-            MenuItem::linkToRoute('Website', 'fas fa-globe-europe', 'app_home'),
 
             MenuItem::section('Blog'),
             MenuItem::linkToCrud('Categories', 'fa fa-tags', Category::class),
             MenuItem::linkToCrud('Posts', 'far fa-newspaper', Post::class),
             MenuItem::linkToCrud('Comments', 'fas fa-comment', Comment::class),
 
-            MenuItem::section('Settings')->setPermission('ROLE_ADMIN'),
+            MenuItem::section('Settings'),
+            MenuItem::linkToRoute('Website', 'fas fa-globe-europe', 'app_home'),
             MenuItem::linkToCrud('Users', 'fa fa-user', User::class)->setPermission('ROLE_ADMIN'),
 
             //MenuItem::section('Users'),

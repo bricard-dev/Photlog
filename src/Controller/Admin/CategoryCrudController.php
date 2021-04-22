@@ -27,7 +27,7 @@ class CategoryCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInSingular('Post')
             ->setEntityLabelInPlural('Posts')
-            ->setSearchFields(['id', 'title'])
+            ->setSearchFields(['title'])
             ->setDateTimeFormat('MM/dd/Y hh:mm a')
             ->setPaginatorPageSize(10)
             ->setDefaultSort(['updatedAt' => 'DESC'])
@@ -40,6 +40,7 @@ class CategoryCrudController extends AbstractCrudController
             ->add(Action::DETAIL, 'detail')
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->remove(Crud::PAGE_DETAIL, Action::DETAIL)
+            ->setPermission(Action::DELETE, 'ROLE_ADMIN')
         ;
     }
 

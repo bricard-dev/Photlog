@@ -45,6 +45,7 @@ class PostCrudController extends AbstractCrudController
             ->add(Action::DETAIL, 'detail')
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->remove(Crud::PAGE_DETAIL, Action::DETAIL)
+            ->setPermission(Action::DELETE, 'ROLE_ADMIN')
         ;
     }
 
@@ -79,8 +80,9 @@ class PostCrudController extends AbstractCrudController
         $comments = AssociationField::new('comments')
             ->setTextAlign('left');
 
-        $panelDescription = FormField::addPanel('Description')->setIcon('fas fa-quote-right');
-        $panelFile = FormField::addPanel('Picture')->setIcon('far fa-image');
+        $panelDescription = FormField::addPanel('Description')->setIcon('fas fa-align-center');
+        $panelPicture = FormField::addPanel('Picture')->setIcon('far fa-image');
+        $panelOthersInformations = FormField::addPanel('Others informations')->setIcon('fas fa-info-circle');
                 
         if (Crud::PAGE_INDEX === $pageName) {
             return [
@@ -98,10 +100,11 @@ class PostCrudController extends AbstractCrudController
                 $panelDescription,
                 $title, 
                 $content, 
-                $category->setHelp('Assign your post to a category'), 
-                $isEnable, 
-                $panelFile, 
+                $category->setHelp('Assign your post to a category'),  
+                $panelPicture, 
                 $imageFile->setFormTypeOption('required', true),
+                $panelOthersInformations,
+                $isEnable,
             ];
         } elseif (Crud::PAGE_EDIT === $pageName) {
             return [
@@ -109,10 +112,11 @@ class PostCrudController extends AbstractCrudController
                 $title, 
                 $content, 
                 $category->setHelp('Assign your post to a category'), 
+                $panelPicture, 
+                $imageFile,
+                $panelOthersInformations,
                 $isEnable,
                 $createdAt,
-                $panelFile, 
-                $imageFile,
             ];
         } else {
             return [
@@ -121,12 +125,13 @@ class PostCrudController extends AbstractCrudController
                 $title, 
                 $slug,
                 $content, 
+                $panelOthersInformations,
                 $isEnable, 
-                $viewed, 
-                $category, 
+                $category,
+                $viewed,
                 $createdAt, 
-                $updatedAt,
-                $panelFile,
+                $updatedAt, 
+                $panelPicture,
                 $imageName, 
             ];
         }  
