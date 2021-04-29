@@ -1,7 +1,16 @@
 @import 'shared/variables';
 @import "~bootstrap";
 
+html {
+    height:100%;
+    box-sizing: border-box;
+}
+
 body {
+    height:100%;
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
     font-family: $primary-font;
     font-size: .875rem;
 
@@ -27,6 +36,14 @@ body {
 
     p {
         font-size: 14px;
+    }
+
+    footer {
+        // position: absolute;
+        // right: 0;
+        // left: 0;
+        // bottom: 0;
+        background-color: black;
     }
 }
 
@@ -166,8 +183,4 @@ aside {
 
 .alert {
     border-radius: 0rem;
-}
-
-footer {
-    background-color: black;
 }
