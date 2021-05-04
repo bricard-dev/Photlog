@@ -4,6 +4,19 @@ A simple sharing pictures blog.
 ## General informations
 Goal : Conception of a photo sharing blog
 
+## Installation
+1. Clone git repository :
+```
+$ clone git https://github.com/bricard-dev/photlog.git
+```
+2. Insert database url configuration in `.env` file.
+3. Insert mailer dsn configuration in `.env` file.
+4. Insert first admin to `users` table.
+5. Start server (with Symfony CLI) : 
+```
+$ symfony server:start
+```
+
 ## Technologies
 Languages :
 * PHP (https://www.php.net): Version 7.3.11
