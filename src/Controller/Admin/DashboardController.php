@@ -79,11 +79,11 @@ class DashboardController extends AbstractDashboardController
 
             MenuItem::section('Settings'),
             MenuItem::linkToRoute('Website', 'fas fa-globe-europe', 'app_home'),
-            MenuItem::linkToCrud('Users', 'fa fa-user', User::class)->setPermission('ROLE_ADMIN'),
+            // MenuItem::linkToCrud('Users', 'fa fa-user', User::class)->setPermission('ROLE_ADMIN'),
 
-            //MenuItem::section('Users'),
-            //MenuItem::linkToCrud('Comments', 'fa fa-comment', Comment::class),
-            //MenuItem::linkToCrud('Users', 'fa fa-user', User::class),
+            // MenuItem::section('Users'),
+            // MenuItem::linkToCrud('Comments', 'fa fa-comment', Comment::class),
+            // MenuItem::linkToCrud('Users', 'fa fa-user', User::class),
         ];
     }
 }
