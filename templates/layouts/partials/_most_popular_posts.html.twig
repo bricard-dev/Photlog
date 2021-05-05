@@ -3,7 +3,7 @@
         <h6>{{ post.title }}</h6>
         <img src="{{ vich_uploader_asset(post, 'imageFile') }}" class="card-cm-img img-demo" alt="{{ post.title }}">
     </a>
-    <p class="mb-2">
+    <p class="mb-3">
         {{ post.createdAt|ago }}
         in 
             <a href="{{ path('app_category_show', {slug: post.category.slug }) }}">{{ post.category.name }}</a>
