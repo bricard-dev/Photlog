@@ -1,16 +1,26 @@
 {% extends 'layouts/blog_with_aside.html.twig' %}
 
-{% block title 'Home' %}
+{% block title 'Photlog' %}
 
 {% block mainContent %}
-<div class="row">
-    {% for col in pagination|batch(pagination.items|length / 2) %}
-        <div class="col-md-6">
-            {% for post in col %}
-                {% include "posts/partials/_post.html.twig" %}
-            {% endfor %}
+<div class="row mt-3">
+    {% if pagination.items|length > 0 %}
+        {% for col in pagination|batch(pagination.items|length / 2) %}
+            <div class="col-md-6">
+                {% for post in col %}
+                    {% include "posts/partials/_post.html.twig" %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-md-6 mx-auto text-center">
+            <h1>No articles yet.</h1>
+            <p>
+                <a href="{{ path('app_login') }}">Login</a>
+                and add your first article!
+            </p>
         </div>
-    {% endfor %}
+    {% endif %}
 </div>
 <div class="navigation">
     {{ knp_pagination_render(pagination, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig', {}, { 'align': 'center'}) }}
