@@ -5,14 +5,34 @@ A simple sharing pictures blog.
 Goal : Conception of a photo sharing blog
 
 ## Installation
+(I use Symfony CLI, but if you don't have this, you can replace `symfony` by `php bin/console` command).
+
 1. Clone git repository :
 ```
-$ clone git https://github.com/bricard-dev/photlog.git
+$ git clone https://github.com/bricard-dev/photlog.git
 ```
 2. Insert database url configuration in `.env` file.
 3. Insert mailer dsn configuration in `.env` file.
-4. Insert first admin to `users` table.
-5. Start server (with Symfony CLI) : 
+4. Create your database :
+```
+$ symfony console doctrine:database:create
+```
+5. Execute migrations :
+```
+$ symfony console doctrine:migrations:migrate
+```
+6. Encode your admin password :
+```
+$ symfony console security:encode-password
+```
+7. Insert first admin to `users` table :
+```
+$ symfony dbal:run-sql "INSERT INTO users (first_name, last_name, username, email, roles, password) \
+  VALUES ('YourFirstName', 'YourLastName', 'YourUsername', 'YourMailAdress', '[\"ROLE_ADMIN\"]', \
+  'YourEncodePassword')"
+```
+
+8. Start server (with Symfony CLI) : 
 ```
 $ symfony server:start
 ```
