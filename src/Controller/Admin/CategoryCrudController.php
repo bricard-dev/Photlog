@@ -25,8 +25,8 @@ class CategoryCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('Post')
-            ->setEntityLabelInPlural('Posts')
+            ->setEntityLabelInSingular('Category')
+            ->setEntityLabelInPlural('Categories')
             ->setSearchFields(['title'])
             ->setDateTimeFormat('MM/dd/Y hh:mm a')
             ->setPaginatorPageSize(10)
