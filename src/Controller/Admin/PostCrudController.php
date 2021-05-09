@@ -33,7 +33,7 @@ class PostCrudController extends AbstractCrudController
             ->setEntityLabelInSingular('Post')
             ->setEntityLabelInPlural('Posts')
             ->setSearchFields(['id', 'title'])
-            ->setDateTimeFormat('MM/dd/Y hh:mm a')
+            ->setDateTimeFormat('MM/dd/Y, hh:mm a')
             ->setPaginatorPageSize(10)
             ->setDefaultSort(['updatedAt' => 'DESC'])
         ;
@@ -86,9 +86,10 @@ class PostCrudController extends AbstractCrudController
                 
         if (Crud::PAGE_INDEX === $pageName) {
             return [
-                $isEnable, 
-                $imageName, 
+                $id,
+                // $isEnable, 
                 $title,
+                $imageName, 
                 $content,
                 $category, 
                 $comments, 
@@ -104,29 +105,30 @@ class PostCrudController extends AbstractCrudController
                 $panelPicture, 
                 $imageFile->setFormTypeOption('required', true),
                 $panelOthersInformations,
-                $isEnable,
+                // $isEnable,
             ];
         } elseif (Crud::PAGE_EDIT === $pageName) {
             return [
                 $panelDescription, 
                 $title, 
+                $slug,
                 $content, 
                 $category->setHelp('Assign your post to a category'), 
                 $panelPicture, 
                 $imageFile,
                 $panelOthersInformations,
-                $isEnable,
+                // $isEnable,
                 $createdAt,
             ];
         } else {
             return [
-                $panelDescription, 
-                // $id, 
+                $panelDescription,  
                 $title, 
                 $slug,
                 $content, 
                 $panelOthersInformations,
-                $isEnable, 
+                $id,
+                // $isEnable, 
                 $category,
                 $viewed,
                 $createdAt, 

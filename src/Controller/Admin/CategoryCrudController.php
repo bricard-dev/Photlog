@@ -67,6 +67,7 @@ class CategoryCrudController extends AbstractCrudController
 
         if (Crud::PAGE_INDEX === $pageName) {
             return [
+                $id,
                 $name, 
                 $slug,
                 $posts, 
@@ -78,15 +79,16 @@ class CategoryCrudController extends AbstractCrudController
             ];
         } elseif (Crud::PAGE_EDIT === $pageName) {
             return [
-                $name, 
+                $name,
+                $slug, 
                 $createdAt
             ];
         } else {
             return [
-                // $id, 
+                $id, 
                 $name, 
                 $slug, 
-                $posts->setHelp('Number of post associated with this category'), 
+                $posts->setHelp('Posts associated with this category'), 
                 $createdAt, 
                 $updatedAt
             ];

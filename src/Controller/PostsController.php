@@ -31,7 +31,7 @@ class PostsController extends AbstractController
         $posts = $postRepository->findBy(['isEnable' => true], ['createdAt' => 'DESC']);
 
         $pagination = $paginator->paginate($posts, $request->query->getInt('page', 1), Post::POST_PER_PAGE);
-        // dd($pagination);
+
         return $this->render('posts/index.html.twig', [
             'pagination' => $pagination,
         ]);
