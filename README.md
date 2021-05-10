@@ -4,8 +4,13 @@ A simple sharing pictures blog.
 ## General informations
 Goal : Conception of a photo sharing blog
 
+## Requirements
+* PHP >= 7.2.5
+* Composer
+* NodeJS
+
 ## Installation
-(I use Symfony CLI, but if you don't have this, you can replace `symfony` by `php bin/console` command).
+(I use Symfony CLI, but if you don't have this, you can replace `symfony console` by `php bin/console` command).
 
 1. Clone git repository :
 ```
@@ -32,7 +37,7 @@ $ symfony dbal:run-sql "INSERT INTO users (first_name, last_name, username, emai
   'YourEncodePassword')"
 ```
 
-8. Start server (with Symfony CLI) : 
+8. Start server : 
 ```
 $ symfony server:start
 ```
