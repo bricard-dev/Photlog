@@ -21,26 +21,34 @@ $ git clone https://github.com/bricard-dev/photlog.git
 ```
 2. Insert database url configuration in `.env` file.
 3. Insert mailer dsn configuration in `.env` file.
-4. Create your database :
+4. Install dependencies with composer and npm :
+```
+$ composer install
+$ npm install
+```
+5. Build webpack
+```
+$ npm run build
+```
+6. Create your database :
 ```
 $ symfony console doctrine:database:create
 ```
-5. Execute migrations :
+7. Execute migrations :
 ```
 $ symfony console doctrine:migrations:migrate
 ```
-6. Encode your admin password :
+8. Encode your admin password :
 ```
 $ symfony console security:encode-password
 ```
-7. Insert first admin to `users` table :
+9. Insert first admin to `users` table (Don't forget to escape password character) :
 ```
-$ symfony dbal:run-sql "INSERT INTO users (first_name, last_name, username, email, roles, password) \
+$ symfony console dbal:run-sql "INSERT INTO users (first_name, last_name, username, email, roles, password) \
   VALUES ('YourFirstName', 'YourLastName', 'YourUsername', 'YourMailAdress', '[\"ROLE_ADMIN\"]', \
   'YourEncodePassword')"
 ```
-
-8. Start server : 
+10. Start server : 
 ```
 $ symfony server:start
 ```
