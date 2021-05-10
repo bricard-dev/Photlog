@@ -4,6 +4,9 @@ A simple sharing pictures blog.
 ## General informations
 Goal : Conception of a photo sharing blog
 
+## Demo
+![Alt text](/public/images/photlog-v0-demo.png)
+
 ## Requirements
 * PHP >= 7.2.5
 * Composer
