@@ -30,7 +30,7 @@ class CommentFormType extends AbstractType
             ->add('content', TextareaType::class, [
                 'label' => false,
                 'attr' => array(
-                    'placeholder' => 'Your comment',
+                    'placeholder' => 'Your comment (max 500 characters)',
                     'rows' => '3',
                 ),
             ])
