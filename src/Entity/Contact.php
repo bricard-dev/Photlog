@@ -9,14 +9,16 @@ class Contact
     /**
      * @var string|null
      * @Assert\NotBlank()
-     * @Assert\Length(min=2, max=100)
+     * @Assert\Length(min=3, max=100)
+     * @Assert\Regex("/^[a-zA-Z]+$/", message="Only letter is accepted")
      */
     private $firstName;
 
     /**
      * @var string|null
      * @Assert\NotBlank()
-     * @Assert\Length(min=2, max=100)
+     * @Assert\Length(min=3, max=100)
+     * @Assert\Regex("/^[a-zA-Z]+$/", message="Only letter is accepted")
      */
     private $lastName;
 

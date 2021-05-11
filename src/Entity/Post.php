@@ -35,12 +35,14 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
      * @Assert\Length(min=2, max=255)
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=100, unique=true)
+     * @Assert\NotBlank()
      * @Gedmo\Slug(fields={"title"})
      */
     private $slug;
@@ -48,6 +50,7 @@ class Post
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
+     * @Assert\Length(min=5)
      */
     private $content;
 

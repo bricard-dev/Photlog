@@ -28,11 +28,13 @@ class Comment
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\Length(min=3, max=255)
      */
     private $author;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      * @Assert\Email()
      */
     private $email;
@@ -40,12 +42,7 @@ class Comment
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
-     * @Assert\Length(
-     *      min=5,
-     *      max=500,
-     *      minMessage="Your comment must be at least {{ limit }} characters long",
-     *      maxMessage="Your comment cannot be longer than {{ limit }} characters"
-     * )
+     * @Assert\Length(min=5, max=500)
      */
     private $content;
 

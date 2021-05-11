@@ -29,27 +29,35 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=3, max=100)
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=3, max=100)
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=3, max=100)
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank()
      * @Assert\Email(message="The email '{{ value }}' is not a valid email.")
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Assert\NotBlank()
      */
     private $roles = [];
 
@@ -62,6 +70,7 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     private $password;
 

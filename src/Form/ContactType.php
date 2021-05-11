@@ -36,7 +36,7 @@ class ContactType extends AbstractType
             ->add('message', TextareaType::class, [
                 'label' => false,
                 'attr' => array(
-                    'placeholder' => 'Your message'
+                    'placeholder' => 'Your message (max 2000 characters)'
                 ),
             ])
         ;
