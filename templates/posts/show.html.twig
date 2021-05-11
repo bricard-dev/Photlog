@@ -17,9 +17,9 @@
             </header>
             <img class="card-cm-img" src="{{ vich_uploader_asset(post, 'imageFile') }}" alt="{{ post.title }}">
             <div class="card-cm-body">
-                <p class="card-cm-text">
+                <div class="card-cm-text">
                     {{ post.content|raw }}
-                </p>
+                </div>
                 <hr>
                 <div class="comments">
                     <h3>{{ pluralize(comments|length, 'comment') }}</h3>

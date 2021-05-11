@@ -17,6 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -66,7 +67,8 @@ class PostCrudController extends AbstractCrudController
             ->formatValue(function($value) {
                 return "/{$value}";
             });
-        $content = TextareaField::new('content');
+        // $content = TextareaField::new('content');
+        $content = TextEditorField::new('content');
         $isEnable = BooleanField::new('isEnable', 'Enable')->setFormattedValue(1);
         $viewed = IntegerField::new('viewCounter', 'Viewed')->setTextAlign('left');
         $imageName = ImageField::new('imageName', 'Image')->setBasePath('uploads/posts');
